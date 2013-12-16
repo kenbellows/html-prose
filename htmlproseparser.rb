@@ -9,8 +9,9 @@ pwd = File.expand_path(File.dirname(__FILE__))
 class HTMLProseParser
   # Load the Treetop grammar from the 'phtml.treetop' file and
   # create a new instance of that parser as a class variable
-  #Treetop.load 'htmlprose.treetop'
-  require './htmlprose.rb'
+  Treetop.load 'htmlprose.treetop'
+  
+  #require './htmlprose.rb'
   
   @@parser = HtmlProseParser.new
   
