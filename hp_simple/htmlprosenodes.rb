@@ -1,20 +1,12 @@
 require 'treetop'
 
-module NodeModule
-  def extended
-    puts self.class.to_s
-  end
-end
 
 class SNode < Treetop::Runtime::SyntaxNode
-  def initialize(_,__,___)
-    puts self.class.to_s
-    super
-  end
+
 end
 
 module HtmlProse
-  class Statement < SNode
+  module Statement
   end
 
   class AskForElement < SNode
@@ -24,10 +16,9 @@ module HtmlProse
   end
   
   module Quantity
-    include NodeModule
   end
   
-  class NumberWord < SNode
+  module NumberWord
   end
   
   class SingularNumberWord < SNode
@@ -49,7 +40,6 @@ module HtmlProse
   end
   
   module Color
-    include NodeModule
   end
   
   class Properties < SNode
@@ -61,6 +51,8 @@ module HtmlProse
   class Contents < SNode
   end
   
+  class Tag < SNode
+  end
   
   # Literals
   class ColorWordLiteral < SNode
@@ -85,7 +77,6 @@ module HtmlProse
   end
   
   module NumberLiteral
-    include NodeModule
   end
   
   class IntegerLiteral < SNode

@@ -3,14 +3,32 @@ require 'treetop'
 
 require './htmlprosenodes.rb'
 
-# Find out what our base path is
-pwd = File.expand_path(File.dirname(__FILE__))
+class Treetop::Runtime::SyntaxNode
+  def inspect
+    #if self.class == Treetop::Runtime::SyntaxNode
+    #  return ''
+    #end
+    "\n#{"  "*level}<#{self.class.to_s.split(':')[-1]}  \"#{text_value.size > 20 ? text_value[0..4]+'...'+text_value[-6..-1] : text_value}\">#{(elements || []).map{|el| el.inspect}.join ""}"
+  end
+  
+  def to_s
+    inspect
+  end
+  
+  def level
+    parent ? parent.level + 1 : 0
+  end
+end
+
 
 class HTMLProseParser
   # Load the Treetop grammar from the 'phtml.treetop' file and
   # create a new instance of that parser as a class variable
-  #Treetop.load 'htmlprose.treetop'
-  require './htmlprose.rb'
+  Treetop.load 'htmlprose.treetop'
+  
+  # Alternatively, precompile the treetop file with 'tt' and 
+  # require the resulting parser module
+  #require './htmlprose.rb'
   
   @@parser = HtmlProseParser.new
   
